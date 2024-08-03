@@ -1,7 +1,7 @@
 {
     "1": {
         "inputs": {
-            "image": "Screenshot 2024-08-01 at 16.14.10.png",
+            "image": "Screenshot 2024-08-01 at 16.14.10 (1).png",
             "upload": "image"
         },
         "class_type": "LoadImage",
@@ -11,7 +11,7 @@
     },
     "2": {
         "inputs": {
-            "image": "adidas_white (1).png",
+            "image": "patagonia_blue.png",
             "upload": "image"
         },
         "class_type": "LoadImage",
@@ -119,7 +119,7 @@
             "num_inference_steps": 30,
             "guidance_scale": 2,
             "strength": 1,
-            "seed": 544,
+            "seed": 480135509437217,
             "pipeline": [
                 "12",
                 0
@@ -192,7 +192,7 @@
     },
     "18": {
         "inputs": {
-            "seed": 8568,
+            "seed": 962066203533547,
             "steps": 8,
             "cfg": 1.8,
             "sampler_name": "dpmpp_sde",
@@ -222,7 +222,7 @@
     },
     "19": {
         "inputs": {
-            "image": "ImgSender_temp_guggb_00001_.png [temp]",
+            "image": "ImgSender_temp_iqhfb_00001_.png [temp]",
             "link_id": 20,
             "save_to_workflow": false,
             "image_data": "",
