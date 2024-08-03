@@ -1,0 +1,399 @@
+{
+    "1": {
+        "inputs": {
+            "image": "Screenshot 2024-08-01 at 16.14.10.png",
+            "upload": "image"
+        },
+        "class_type": "LoadImage",
+        "_meta": {
+            "title": "Load Image"
+        }
+    },
+    "2": {
+        "inputs": {
+            "image": "adidas_white (1).png",
+            "upload": "image"
+        },
+        "class_type": "LoadImage",
+        "_meta": {
+            "title": "Load Image"
+        }
+    },
+    "3": {
+        "inputs": {
+            "prompt": "t-shirt",
+            "threshold": 0.3,
+            "sam_model": [
+                "4",
+                0
+            ],
+            "grounding_dino_model": [
+                "5",
+                0
+            ],
+            "image": [
+                "1",
+                0
+            ]
+        },
+        "class_type": "GroundingDinoSAMSegment (segment anything)",
+        "_meta": {
+            "title": "GroundingDinoSAMSegment (segment anything)"
+        }
+    },
+    "4": {
+        "inputs": {
+            "model_name": "sam_vit_h (2.56GB)"
+        },
+        "class_type": "SAMModelLoader (segment anything)",
+        "_meta": {
+            "title": "SAMModelLoader (segment anything)"
+        }
+    },
+    "5": {
+        "inputs": {
+            "model_name": "GroundingDINO_SwinT_OGC (694MB)"
+        },
+        "class_type": "GroundingDinoModelLoader (segment anything)",
+        "_meta": {
+            "title": "GroundingDinoModelLoader (segment anything)"
+        }
+    },
+    "6": {
+        "inputs": {
+            "mask": [
+                "3",
+                1
+            ]
+        },
+        "class_type": "MaskToImage",
+        "_meta": {
+            "title": "Convert Mask to Image"
+        }
+    },
+    "8": {
+        "inputs": {
+            "images": [
+                "6",
+                0
+            ]
+        },
+        "class_type": "PreviewImage",
+        "_meta": {
+            "title": "Preview Image"
+        }
+    },
+    "9": {
+        "inputs": {
+            "model": "densepose_r101_fpn_dl.torchscript",
+            "cmap": "Viridis (MagicAnimate)",
+            "resolution": 768,
+            "image": [
+                "1",
+                0
+            ]
+        },
+        "class_type": "DensePosePreprocessor",
+        "_meta": {
+            "title": "DensePose Estimator"
+        }
+    },
+    "10": {
+        "inputs": {
+            "images": [
+                "9",
+                0
+            ]
+        },
+        "class_type": "PreviewImage",
+        "_meta": {
+            "title": "Preview Image"
+        }
+    },
+    "11": {
+        "inputs": {
+            "garment_description": "a model wearing a shirt",
+            "negative_prompt": "bad anatomy, worse quality, low quality",
+            "width": 1088,
+            "height": 1096,
+            "num_inference_steps": 30,
+            "guidance_scale": 2,
+            "strength": 1,
+            "seed": 544,
+            "pipeline": [
+                "12",
+                0
+            ],
+            "human_img": [
+                "1",
+                0
+            ],
+            "pose_img": [
+                "9",
+                0
+            ],
+            "mask_img": [
+                "6",
+                0
+            ],
+            "garment_img": [
+                "2",
+                0
+            ]
+        },
+        "class_type": "IDM-VTON",
+        "_meta": {
+            "title": "Run IDM-VTON Inference"
+        }
+    },
+    "12": {
+        "inputs": {
+            "weight_dtype": "float16"
+        },
+        "class_type": "PipelineLoader",
+        "_meta": {
+            "title": "Load IDM-VTON Pipeline"
+        }
+    },
+    "15": {
+        "inputs": {
+            "ckpt_name": "DreamshaperXL-Turbo.safetensors"
+        },
+        "class_type": "CheckpointLoaderSimple",
+        "_meta": {
+            "title": "Load Checkpoint"
+        }
+    },
+    "16": {
+        "inputs": {
+            "text": "realistic image of a man wearing a shirt",
+            "clip": [
+                "15",
+                1
+            ]
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+            "title": "CLIP Text Encode (Prompt)"
+        }
+    },
+    "17": {
+        "inputs": {
+            "text": "bad anatomy, worse quality, low quality",
+            "clip": [
+                "15",
+                1
+            ]
+        },
+        "class_type": "CLIPTextEncode",
+        "_meta": {
+            "title": "CLIP Text Encode (Prompt)"
+        }
+    },
+    "18": {
+        "inputs": {
+            "seed": 8568,
+            "steps": 8,
+            "cfg": 1.8,
+            "sampler_name": "dpmpp_sde",
+            "scheduler": "karras",
+            "denoise": 0.4,
+            "model": [
+                "25",
+                0
+            ],
+            "positive": [
+                "16",
+                0
+            ],
+            "negative": [
+                "17",
+                0
+            ],
+            "latent_image": [
+                "20",
+                0
+            ]
+        },
+        "class_type": "KSampler",
+        "_meta": {
+            "title": "KSampler"
+        }
+    },
+    "19": {
+        "inputs": {
+            "image": "ImgSender_temp_guggb_00001_.png [temp]",
+            "link_id": 20,
+            "save_to_workflow": false,
+            "image_data": "",
+            "trigger_always": true
+        },
+        "class_type": "ImageReceiver",
+        "_meta": {
+            "title": "Image Receiver"
+        }
+    },
+    "20": {
+        "inputs": {
+            "pixels": [
+                "19",
+                0
+            ],
+            "vae": [
+                "15",
+                2
+            ]
+        },
+        "class_type": "VAEEncode",
+        "_meta": {
+            "title": "VAE Encode"
+        }
+    },
+    "21": {
+        "inputs": {
+            "samples": [
+                "18",
+                0
+            ],
+            "vae": [
+                "15",
+                2
+            ]
+        },
+        "class_type": "VAEDecode",
+        "_meta": {
+            "title": "VAE Decode"
+        }
+    },
+    "22": {
+        "inputs": {
+            "images": [
+                "21",
+                0
+            ]
+        },
+        "class_type": "PreviewImage",
+        "_meta": {
+            "title": "Preview Image"
+        }
+    },
+    "24": {
+        "inputs": {
+            "filename_prefix": "ImgSender",
+            "link_id": 20,
+            "images": [
+                "11",
+                0
+            ]
+        },
+        "class_type": "ImageSender",
+        "_meta": {
+            "title": "Image Sender"
+        }
+    },
+    "25": {
+        "inputs": {
+            "weight": 0.8,
+            "start_at": 0,
+            "end_at": 1,
+            "weight_type": "standard",
+            "model": [
+                "26",
+                0
+            ],
+            "ipadapter": [
+                "26",
+                1
+            ],
+            "image": [
+                "2",
+                0
+            ],
+            "attn_mask": [
+                "29",
+                0
+            ]
+        },
+        "class_type": "IPAdapter",
+        "_meta": {
+            "title": "IPAdapter"
+        }
+    },
+    "26": {
+        "inputs": {
+            "preset": "PLUS (high strength)",
+            "model": [
+                "15",
+                0
+            ]
+        },
+        "class_type": "IPAdapterUnifiedLoader",
+        "_meta": {
+            "title": "IPAdapter Unified Loader"
+        }
+    },
+    "28": {
+        "inputs": {
+            "expand": 40,
+            "tapered_corners": true,
+            "mask": [
+                "3",
+                1
+            ]
+        },
+        "class_type": "GrowMask",
+        "_meta": {
+            "title": "GrowMask"
+        }
+    },
+    "29": {
+        "inputs": {
+            "kernel_size": 20,
+            "sigma": 40,
+            "mask": [
+                "28",
+                0
+            ]
+        },
+        "class_type": "ImpactGaussianBlurMask",
+        "_meta": {
+            "title": "Gaussian Blur Mask"
+        }
+    },
+    "30": {
+        "inputs": {
+            "x": 0,
+            "y": 0,
+            "resize_source": false,
+            "destination": [
+                "19",
+                0
+            ],
+            "source": [
+                "21",
+                0
+            ],
+            "mask": [
+                "29",
+                0
+            ]
+        },
+        "class_type": "ImageCompositeMasked",
+        "_meta": {
+            "title": "ImageCompositeMasked"
+        }
+    },
+    "31": {
+        "inputs": {
+            "filename_prefix": "ComfyUI",
+            "images": [
+                "30",
+                0
+            ]
+        },
+        "class_type": "SaveImage",
+        "_meta": {
+            "title": "Save Image"
+        }
+    }
+}
